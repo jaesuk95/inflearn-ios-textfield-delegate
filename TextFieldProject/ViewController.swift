@@ -54,7 +54,31 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         print(#function)
         print(string)
-        return true
+        
+        
+        // from google (maximum string length set to 10)
+//        let maxLength = 10
+//        let currentString: NSString = (textField.text ?? "") as NSString
+//        let newString: NSString =
+//        currentString.replacingCharacters(in: range, with: string) as NSString
+//        return newString.length <= maxLength
+        
+        // 입력되고 있는 글자가 "숫자" 인경우 입력을 혀용하지 않는 논리
+        if Int(string) != nil { // 숫자로 변환이 된다면 nil 이 아닐테니
+            return false
+        } else {
+            // 10 글자이상 입력되는 것을 막는 코드
+            guard let text = textField.text else {return true}
+            let newLength = text.count + string.count - range.length
+            return newLength <= 10
+        }
+        
+        // 10 글자이상 입력되는 것을 막는 코드 (또다른 구현법)
+//        if (textField.text?.count) + string.count > 10 {
+//            return false
+//        } else {
+//            return true
+//        }
     }
     
     // textField 엔터키가 눌러지면 다음 동작을 허락할 것인지
@@ -80,7 +104,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         print(#function)
         print("User has finished texting")
-        return
+        textField.text = ""
+//        return
     }
     
     // done button
