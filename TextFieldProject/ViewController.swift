@@ -31,7 +31,18 @@ class ViewController: UIViewController, UITextFieldDelegate {
         textField.borderStyle = .roundedRect
         textField.clearButtonMode = .always
         textField.returnKeyType = .go   // <- changes the 'done' button
+        
+        
+        
+        // 시작하자 마자 키보드 실행
+        textField.becomeFirstResponder()
     }
+    
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
 
     // textField 의 입력을 시작할 때 호출 (시작할지 말지의 여부 허락하는 것)
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -110,7 +121,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     // done button
     @IBAction func doneButtonTapped(_ sender: UIButton) {
-        
+        textField.resignFirstResponder()
     }
     
 }
